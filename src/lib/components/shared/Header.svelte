@@ -3,6 +3,7 @@
 	import Separator from '$components/ui/separator/Separator.svelte';
 
 	import { page } from '$app/stores';
+	import { enhance } from '$app/forms';
 </script>
 
 <nav class="flex items-center justify-between p-4">
@@ -13,7 +14,7 @@
 			<li><a href="/">Home</a></li>
 			<li><a href="/dashboard">Dashboard</a></li>
 			<li><a href="/contact">Contact</a></li>
-			<form action="/logout" method="post">
+			<form action="/logout" method="post" use:enhance>
 				<Button variant="destructive" type="submit">Logout</Button>
 			</form>
 		{:else}
