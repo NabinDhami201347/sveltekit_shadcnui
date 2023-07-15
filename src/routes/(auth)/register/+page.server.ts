@@ -1,16 +1,21 @@
 import { fail, redirect } from '@sveltejs/kit';
 import type { Action, Actions, PageServerLoad } from './$types';
-
-import { db } from '$lib/database';
 import bcrypt from 'bcrypt';
 
+import { db } from '$lib/database';
+
+// using an enum for user roles to avoid typos
+// if you're not using TypeScript use an object
 enum Roles {
 	ADMIN = 'ADMIN',
 	USER = 'USER'
 }
 
-export const load: PageServerLoad = async () => {
-	// todo
+// redirect user if logged in
+export const load: PageServerLoad = async ({ locals }) => {
+	if (locals.user) {
+		throw redirect(302, '/');
+	}
 };
 
 const register: Action = async ({ request }) => {

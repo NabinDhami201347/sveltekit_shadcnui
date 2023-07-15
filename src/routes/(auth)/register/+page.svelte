@@ -7,8 +7,9 @@
 	import Label from '$components/ui/label/Label.svelte';
 
 	import type { ActionData } from './$types';
+	import { enhance } from '$app/forms';
 
-	export let data: ActionData;
+	export let form: ActionData;
 </script>
 
 <main class="sm:flex items-center justify-center mt-10 px-1">
@@ -17,9 +18,13 @@
 			<CardTitle>Get Connected</CardTitle>
 		</CardHeader>
 		<CardContent class="space-y-2">
-			<form method="post" action="?/register">
+			<form action="?/register" method="POST" use:enhance>
 				<Label>Email</Label>
 				<Input type="text" name="email" />
+
+				{#if form?.user}
+					<p class="text-red-400">Username is taken.</p>
+				{/if}
 
 				<Label>Password</Label>
 				<Input type="password" name="password" />
@@ -36,10 +41,6 @@
 
 				<Button type="submit" class="w-full mt-4">Continue</Button>
 			</form>
-
-			{#if data?.user}
-				<p class="error">Username is taken.</p>
-			{/if}
 		</CardContent>
 
 		<CardFooter>
